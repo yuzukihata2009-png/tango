@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>単語テスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f5;--fg:#1c2433;--mut:#6a7385;--card:#fff;--line:#c9d0dc;--acc:#274c77;--accfg:#fff;--ok:#2e7d32;--okbg:#e3f3e5;--ng:#b3261e;--ngbg:#fbe7e5;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151f;--fg:#e6eaf2;--mut:#98a2b5;--card:#1a2130;--line:#33405a;--acc:#8fb4e3;--accfg:#10151f;--ok:#7fd18a;--okbg:#1b3320;--ng:#ff9a92;--ngbg:#3a1d1b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10151f;--fg:#e6eaf2;--mut:#98a2b5;--card:#1a2130;--line:#33405a;--acc:#8fb4e3;--accfg:#10151f;--ok:#7fd18a;--okbg:#1b3320;--ng:#ff9a92;--ngbg:#3a1d1b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif;line-height:1.6}
+#app{max-width:560px;margin:0 auto;padding:12px 14px 40px}
+button{font:inherit;color:inherit;cursor:pointer}
+.hd{position:relative;margin-bottom:12px}
+.ttl{width:100%;border:2px solid var(--fg);background:var(--card);padding:14px;font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:700;font-size:26px;letter-spacing:.08em}
+.ttl span{font-size:14px;color:var(--mut)}
+.menu{position:absolute;left:0;right:0;top:100%;z-index:5;background:var(--card);border:2px solid var(--fg);border-top:0}
+.mi{display:block;width:100%;text-align:left;padding:12px 14px;border:0;border-top:1px solid var(--line);background:none;font-size:16px}
+.mi.on{background:var(--acc);color:var(--accfg)}
+.tabs{display:flex;border-bottom:2px solid var(--fg)}
+.tab{flex:1;padding:10px 0;border:2px solid transparent;border-bottom:0;background:none;font-size:15px;color:var(--mut)}
+.tab.on{border-color:var(--fg);background:var(--card);color:var(--fg);font-weight:700;margin-bottom:-2px;padding-bottom:12px}
+.pane{background:var(--card);border:2px solid var(--fg);border-top:0;padding:18px 16px;min-height:60vh}
+.prog{color:var(--mut);font-size:14px}
+.qw{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:700;font-size:44px;text-align:center;margin:18px 0 4px;word-break:break-word;overflow-wrap:anywhere}
+.qs{text-align:center;color:var(--mut);font-size:14px;margin-bottom:16px}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:14px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);font-size:16px;overflow-wrap:anywhere}
+.opt:disabled{color:var(--fg);cursor:default}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.ng{border-color:var(--ng);background:var(--ngbg)}
+.fb{text-align:center;font-weight:700;font-size:20px;margin:14px 0 8px}
+.pri{display:block;width:100%;padding:14px;border:0;border-radius:8px;background:var(--acc);color:var(--accfg);font-weight:700;font-size:16px;margin:8px 0}
+.sec{display:block;width:100%;padding:12px;border:1.5px solid var(--line);border-radius:8px;background:none;margin:8px 0}
+h3{margin:0 0 10px;font-size:17px}
+.cnt{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px}
+.cnt .pri{flex:1;min-width:30%;margin:0}
+.row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.row input{width:22px;height:22px;margin-top:4px;accent-color:var(--acc);flex:none}
+.row>div{min-width:0;overflow-wrap:anywhere}
+.rw{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:700;font-size:20px}
+.rm{font-size:14px;color:var(--mut)}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--ok);color:var(--ok);border-radius:10px;padding:0 8px;margin-left:6px}
+.big{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:700;font-size:64px;text-align:center;line-height:1.2}
+.bar{height:14px;border:1.5px solid var(--fg);border-radius:7px;overflow:hidden;margin:10px 0 18px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+details{margin-top:22px;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px}
+summary{font-weight:700;cursor:pointer}
+textarea,input[type=text],input[type=number],input[type=url]{width:100%;margin:8px 0;padding:10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:inherit;font-size:15px}
+textarea{height:130px}
+.msg{font-size:14px;color:var(--mut);margin:6px 0}
+.emp{text-align:center;color:var(--mut);padding:40px 0}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var SAMPLE=[
+{id:'1',w:'ありく',a:'出歩く、歩く／あちこちで〜する',d:['走る','存在する','ありがたい']},
+{id:'2',w:'かち',a:'徒歩',d:['勝つ','活躍する','話す']},
+{id:'3',w:'いぬ',a:'去る、行く',d:['犬','来る','いる']},
+{id:'4',w:'わたる',a:'行く、来る／（時空間的に）ずっと、一面に〜する',d:['繋ぐ','歩く','過ごす']}
+];
+var KEY='tango_test_v1',S={decks:{},cur:''},tab='test',menu=false,T=null,note='';
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+/* 文字数が多いほど文字を小さくする。steps=[[上限文字数,サイズpx],...]、超えたらmin */
+function fz(s,steps,min){var n=String(s).length;for(var i=0;i<steps.length;i++)if(n<=steps[i][0])return steps[i][1];return min}
+function fs(s,steps,min){return'font-size:'+fz(s,steps,min)+'px'}
+var ST_Q=[[8,44],[14,34],[24,26],[40,20]],ST_O=[[30,16],[60,14],[100,13]],ST_W=[[12,20],[24,17],[48,15]],ST_A=[[40,16],[80,14]];
+function load(){try{var j=localStorage.getItem(KEY);if(j)S=JSON.parse(j)}catch(e){}
+ if(!S.decks||!Object.keys(S.decks).length)S={decks:{'古文単語':{words:SAMPLE,rec:{}}},cur:'古文単語'};
+ if(!S.decks[S.cur])S.cur=Object.keys(S.decks)[0]}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function cur(){return S.decks[S.cur]}
+function rec(c,id){return c.rec[id]||(c.rec[id]={c:0,t:0,ok:false})}
+function ago(ts){if(!ts)return'日時不明';var m=Math.floor((Date.now()-ts)/60000);if(m<1)return'たった今';if(m<60)return m+'分前';var h=Math.floor(m/60);if(h<24)return h+'時間前';return Math.floor(h/24)+'日前'}
+
+function parseCSV(t){t=t.replace(/^\uFEFF/,'');var d=t.split('\n')[0].indexOf('\t')>=0?'\t':',';
+ var rows=[],r=[],f='',q=false;
+ for(var i=0;i<t.length;i++){var c=t[i];
+  if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+  else if(c=='"')q=true;
+  else if(c==d){r.push(f);f=''}
+  else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;r.push(f);f='';rows.push(r);r=[]}
+  else f+=c}
+ r.push(f);rows.push(r);return rows}
+function toWords(rows){var out=[],skip=0,seen={};
+ rows.forEach(function(r,n){r=r.map(function(x){return x.trim()});
+  if(r.join('')==='')return;
+  if(r[1]==='単語')return;
+  var d=r.slice(3,6).filter(Boolean);
+  if(!r[1]||!r[2]||d.length<3){skip++;return}
+  var id=r[0]||String(n+1);while(seen[id])id+='_';seen[id]=1;
+  out.push({id:id,w:r[1],a:r[2],d:d})});
+ return{words:out,skip:skip}}
+
+function doImport(){var name=$('#dn').value.trim(),txt=$('#ta').value;
+ if(!name){note='単語帳の名前を入力してください';R();return}
+ var p=toWords(parseCSV(txt));
+ if(!p.words.length){note='読み込める行がありません。列は「番号, 単語, 正答, 誤答1, 誤答2, 誤答3」の順にしてください';R();return}
+ var old=S.decks[name];S.decks[name]={words:p.words,rec:old?old.rec:{}};
+ S.cur=name;T=null;menu=false;tab='list';note=p.words.length+'語を読み込みました'+(p.skip?'（'+p.skip+'行は列が足りず除外）':'');save();R()}
+function readFile(inp){var f=inp.files[0];if(!f)return;var fr=new FileReader();
+ fr.onload=function(){$('#ta').value=fr.result;if(!$('#dn').value)$('#dn').value=f.name.replace(/\.[^.]+$/,'')};fr.readAsText(f,'utf-8')}
+function sheetCsvUrl(u){var m=u.match(/\/spreadsheets\/d\/([^\/]+)/);if(!m||/\/pub/.test(u))return u;var g=u.match(/[#&?]gid=(\d+)/);return'https://docs.google.com/spreadsheets/d/'+m[1]+'/gviz/tq?tqx=out:csv'+(g?'&gid='+g[1]:'')}
+function fromUrl(){var u=$('#ul').value.trim(),um=$('#um');if(!u){um.textContent='リンクを入力してください';return}
+ um.textContent='読み込み中…';
+ fetch(sheetCsvUrl(u)).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){$('#ta').value=t;doImport()}).catch(function(){um.textContent='リンクから読み込めませんでした。共有設定（リンクを知っている全員が閲覧可）を確認するか、この公開ページでは外部への接続が制限されるため、貼り付けかファイル選択を使ってください。'})}
+function delDeck(){if(Object.keys(S.decks).length<2)return;if(!confirm('「'+S.cur+'」を削除しますか？'))return;
+ delete S.decks[S.cur];S.cur=Object.keys(S.decks)[0];T=null;note='';save();R()}
+function pick(i){S.cur=Object.keys(S.decks)[i];menu=false;T=null;note='';save();R()}
+/* 最後に出題してから時間が経っている順（未出題が最優先）に選び、出題順はシャッフル */
+function start(n){var c=cur();
+ var sel=c.words.map(function(w){var r=c.rec[w.id];return{w:w,k:(r&&r.la||0)+Math.random()}}).sort(function(a,b){return a.k-b.k}).slice(0,n).map(function(x){return x.w});
+ T={q:shuffle(sel),i:0,sel:null,score:0,opts:null,qs:Date.now()};R()}
+function startCustom(){var n=cur().words.length,v=parseInt($('#nq').value,10);if(!v||v<1)v=1;if(v>n)v=n;start(v)}
+function ans(k){var w=T.q[T.i],r=rec(cur(),w.id),now=Date.now(),good=T.opts[k]==w.a;T.sel=k;r.t++;r.la=now;r.lo=good;cur().sec=(cur().sec||0)+Math.min((now-T.qs)/1000,60);
+ if(good){r.c++;r.ok=true;T.score++}else r.lm=now;save();R()}
+function nxt(){T.i++;T.sel=null;T.opts=null;T.qs=Date.now();R()}
+function fmt(s){var m=Math.floor(s/60);return m?m+'分':(s>0?'1分未満':'0分')}
+function tog(id,el){rec(cur(),id).ok=el.checked;save()}
+
+function vTest(c){var n=c.words.length,h='';
+ if(!n)return'<div class="emp">単語がありません。「一覧」タブから読み込んでください。</div>';
+ if(!T){var cs=[5,10,20].filter(function(x){return x<n});cs.push(n);
+  h='<h3>何問やりますか？</h3><div class="cnt">'+cs.map(function(x){return'<button class="pri" onclick="start('+x+')">'+(x==n?'全'+x+'問':x+'問')+'</button>'}).join('')+'</div><div class="msg">問題数を自由に入力できます（1〜'+n+'）。最近出していない問題から優先して出題します。</div><input type="number" id="nq" min="1" max="'+n+'" value="'+Math.min(10,n)+'" inputmode="numeric"><button class="sec" onclick="startCustom()">この問題数で始める</button>';
+  return h}
+ if(T.i>=T.q.length){var p=Math.round(T.score/T.q.length*100);
+  return'<div class="prog">結果</div><div class="big">'+T.score+' / '+T.q.length+'</div><div class="qs">正答率 '+p+'%</div><button class="pri" onclick="start('+T.q.length+')">もう一度</button><button class="sec" onclick="T=null;R()">問題数を選び直す</button>'}
+ var w=T.q[T.i];if(!T.opts)T.opts=shuffle(Array.from(new Set([w.a].concat(w.d))));
+ h='<div class="prog">'+(T.i+1)+' / '+T.q.length+'</div><div class="qw" style="'+fs(w.w,ST_Q,16)+(w.w.length>24?';text-align:left;line-height:1.5':'')+'">'+esc(w.w)+'</div><div class="qs">意味はどれ？</div>';
+ T.opts.forEach(function(o,k){var cl='opt';if(T.sel!==null){if(o==w.a)cl+=' ok';else if(k==T.sel)cl+=' ng'}
+  h+='<button class="'+cl+'" style="'+fs(o,ST_O,12)+'"'+(T.sel!==null?' disabled':'')+' onclick="ans('+k+')">'+esc(o)+'</button>'});
+ if(T.sel!==null)h+='<div class="fb" style="color:var(--'+(T.opts[T.sel]==w.a?'ok':'ng')+')">'+(T.opts[T.sel]==w.a?'正解！':'不正解')+'</div><button class="pri" onclick="nxt()">'+(T.i+1<T.q.length?'次の問題':'結果を見る')+'</button>';
+ return h}
+
+function vList(c){var h='';
+ if(!c.words.length)h='<div class="emp">単語がありません。</div>';
+ c.words.forEach(function(w){var r=c.rec[w.id]||{c:0,t:0,ok:false};
+  h+='<label class="row"><input type="checkbox"'+(r.ok?' checked':'')+' onchange="tog(\''+esc(w.id).replace(/'/g,"\\'")+'\',this)"><div><div class="rw" style="'+fs(w.w,ST_W,13)+'">'+esc(w.w)+'</div><div style="'+fs(w.a,ST_A,12)+'">'+esc(w.a)+'</div><div class="rm">正解 '+r.c+'回</div></div></label>'});
+ h+='<details'+(note?' open':'')+'><summary>単語を読み込む</summary>'
+  +'<div class="msg">スプレッドシートの表をコピーして貼るか、CSVファイルを選んでください。列は「番号, 単語, 正答, 誤答1, 誤答2, 誤答3」です。</div>'
+  +'<input type="text" id="dn" placeholder="単語帳の名前（例：英単語）" value="'+esc(S.cur)+'">'
+  +'<input type="url" id="ul" placeholder="スプレッドシートのリンク"><button class="sec" onclick="fromUrl()">リンクから読み込む</button><div class="msg" id="um"></div>'
+  +'<input type="file" accept=".csv,.tsv,.txt" onchange="readFile(this)">'
+  +'<textarea id="ta" placeholder="ここに貼り付け"></textarea>'
+  +'<button class="pri" onclick="doImport()">読み込む</button>'
+  +'<div class="msg">同じ名前の単語帳は上書きされます（番号が同じ単語の記録は残ります）。</div>'
+  +(Object.keys(S.decks).length>1?'<button class="sec" onclick="delDeck()">この単語帳を削除</button>':'')
+  +'</details>';
+ if(note)h+='<div class="msg" style="margin-top:12px">'+esc(note)+'</div>';
+ return h}
+
+/* 間違えた問題を、最近間違えた順に表示 */
+function vMiss(c){var L=[];
+ c.words.forEach(function(w){var r=c.rec[w.id];if(r&&(r.lm||r.t>r.c))L.push({w:w,r:r})});
+ if(!L.length)return'<div class="emp">間違えた問題はまだありません。</div>';
+ L.sort(function(a,b){return(b.r.lm||0)-(a.r.lm||0)||(b.r.t-b.r.c)-(a.r.t-a.r.c)});
+ var h='<div class="msg" style="margin-top:0">最近間違えた順（'+L.length+'語）</div>';
+ L.forEach(function(x){var w=x.w,r=x.r;
+  h+='<div class="row"><div><div class="rw" style="'+fs(w.w,ST_W,13)+'">'+esc(w.w)+(r.lo?'<span class="tag">その後正解</span>':'')+'</div><div style="'+fs(w.a,ST_A,12)+'">'+esc(w.a)+'</div><div class="rm">'+ago(r.lm)+'に間違い・間違い '+(r.t-r.c)+'回</div></div></div>'});
+ return h}
+
+function vStat(c){var n=c.words.length;if(!n)return'<div class="emp">単語がありません。</div>';
+ var ok=0,t=0,cc=0,miss=[];
+ c.words.forEach(function(w){var r=c.rec[w.id]||{c:0,t:0,ok:false};
+  if(r.ok)ok++;t+=r.t;cc+=r.c;if(r.t>r.c)miss.push({w:w.w,m:r.t-r.c,t:r.t})});
+ miss.sort(function(a,b){return b.m-a.m});
+ var p=Math.round(ok/n*100);
+ var h='<div class="qs">覚えた単語</div><div class="big">'+p+'%</div><div class="bar"><i style="width:'+p+'%"></i></div>'
+  +'<div class="kv"><span>覚えた</span><b>'+ok+' / '+n+'語</b></div>'
+  +'<div class="kv"><span>これまでに解いた問題数</span><b>'+t+'問</b></div>'
+  +'<div class="kv"><span>テストに使った時間</span><b>'+fmt(c.sec||0)+'</b></div>'
+  +'<div class="kv"><span>全体の正答率</span><b>'+(t?Math.round(cc/t*100)+'%':'―')+'</b></div>';
+ if(miss.length){h+='<h3 style="margin-top:22px">間違えた回数が多い単語</h3>';
+  miss.slice(0,5).forEach(function(m){h+='<div class="kv"><span class="rw" style="'+fs(m.w,[[12,18],[24,15]],12)+'">'+esc(m.w)+'</span><b style="flex:none">'+m.m+'回間違い</b></div>'})}
+ return h}
+
+function R(){var c=cur();
+ var h='<div class="hd"><button class="ttl" onclick="menu=!menu;R()">'+esc(S.cur)+' テスト <span>'+(menu?'▲':'▼')+'</span></button>';
+ if(menu)h+='<div class="menu">'+Object.keys(S.decks).map(function(k,i){return'<button class="mi'+(k==S.cur?' on':'')+'" onclick="pick('+i+')">'+esc(k)+'</button>'}).join('')+'<button class="mi" onclick="menu=false;tab=\'list\';R()">＋ 新しい単語帳を読み込む</button></div>';
+ h+='</div><div class="tabs">'+[['test','テスト'],['list','一覧'],['miss','間違い'],['stat','統計']].map(function(x){return'<button class="tab'+(tab==x[0]?' on':'')+'" onclick="tab=\''+x[0]+'\';R()">'+x[1]+'</button>'}).join('')+'</div><div class="pane">';
+ h+=tab=='test'?vTest(c):tab=='list'?vList(c):tab=='miss'?vMiss(c):vStat(c);
+ $('#app').innerHTML=h+'</div>'}
+load();R();
+</script>
+</body>
+</html>
