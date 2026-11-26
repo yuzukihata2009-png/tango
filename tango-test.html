@@ -129,7 +129,7 @@ function tog(id,el){rec(cur(),id).ok=el.checked;save()}
 
 function vTest(c){var n=c.words.length,h='';
  if(!n)return'<div class="emp">単語がありません。「一覧」タブから読み込んでください。</div>';
- if(!T){var cs=[5,10,20].filter(function(x){return x<n});cs.push(n);
+ if(!T){var cs=[100,200,300].filter(function(x){return x<n});cs.push(n);
   h='<h3>何問やりますか？</h3><div class="cnt">'+cs.map(function(x){return'<button class="pri" onclick="start('+x+')">'+(x==n?'全'+x+'問':x+'問')+'</button>'}).join('')+'</div><div class="msg">問題数を自由に入力できます（1〜'+n+'）。最近出していない問題から優先して出題します。</div><input type="number" id="nq" min="1" max="'+n+'" value="'+Math.min(10,n)+'" inputmode="numeric"><button class="sec" onclick="startCustom()">この問題数で始める</button>';
   return h}
  if(T.i>=T.q.length){var p=Math.round(T.score/T.q.length*100);
